@@ -1,12 +1,11 @@
 # react-native-hot-update
 
-## Getting started
-
-`$ npm install react-native-hot-update --save`
-
-### Mostly automatic installation
-
-`$ react-native link react-native-hot-update`
+## 说明
+鉴于code-push在国内不稳定，故自己撸了个热更功能，本模块不提供服务端实现
+参考资料：
+1. [ReactNative增量升级方案](https://github.com/cnsnake11/blog/blob/master/ReactNative开发指导/ReactNative增量升级方案.md)
+2. [React Native 实现热部署、差异化增量热更新](https://blog.csdn.net/csdn_aiyang/article/details/78328000)
+3. [Code Push源码](https://github.com/microsoft/react-native-code-push)
 
 ### Manual installation
 
