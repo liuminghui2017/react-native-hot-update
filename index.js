@@ -5,7 +5,7 @@ import log from "./logging";
 
 const NativeHotUpdate = NativeModules.HotUpdate;
 
-let serverUrl = 'http://10.221.230.151:3000';
+let serverUrl = null;
 /**
  * updateMap.json {
  *  1.5.1: [
@@ -40,12 +40,32 @@ function get(url) {
 	return fetch(url).then((response) => response.json())
 }
 
-async function getUpdateMap() {
-	return await get(`${serverUrl}/updateMap.json`)
+function getUpdateMap() {
+	return new Promise((resolve) => {
+		get(`${serverUrl}/updateMap.json`)
+		.then((response) => {
+			resolve(response)
+		})
+		.catch((error) => {
+			console.log('get updateMap.json failed!')
+			console.log(error)
+			resolve(null)
+		})
+	})
 }
 
-async function getUpdateRecord() {
-	return await get(`${serverUrl}/updateRecord.json`)
+function getUpdateRecord() {
+	return new Promise((resolve) => {
+		get(`${serverUrl}/updateRecord.json`)
+		.then((response) => {
+			resolve(response)
+		})
+		.catch((error) => {
+			console.log('get updateRecord.json failed!')
+			console.log(error)
+			resolve(null)
+		})
+	})
 }
 
 /**
@@ -57,11 +77,14 @@ async function getUpdateRecord() {
  * }
  */
 async function checkUpdate() {
+	if (!serverUrl) return null
 	let updateMap = await getUpdateMap()
 	let updateRecord = await getUpdateRecord()
 	let currentVersionInfo = await NativeHotUpdate.getCurrentVersionInfo()
 	let { appVersion, appPatch, appHash } = currentVersionInfo
 	let remotePackage = null
+
+	if (!updateMap || !updateRecord) return null
 
 	if (updateMap[appVersion]) {
 		let patchList = updateMap[appVersion] // 补丁列表
@@ -94,7 +117,7 @@ async function checkUpdate() {
 				if (record.label === latestPatch.label) {
 					remotePackage.description =record.description
 					remotePackage.mandatory =record.mandatory
-					return true
+					return remotePackage
 				}
 			})
 		}
@@ -172,6 +195,7 @@ let HotUpdate
 
 if (NativeHotUpdate) {
 	HotUpdate = {
+		setServerUrl,
 		download,
 		checkUpdate,
 		install,
@@ -184,7 +208,8 @@ if (NativeHotUpdate) {
       ON_NEXT_SUSPEND: NativeHotUpdate.hotUpdateInstallModeOnNextSuspend // Restart the app _while_ it is in the background,
       // but only after it has been in the background for "minimumBackgroundDuration" seconds (0 by default),
       // so that user context isn't lost unless the app suspension is long enough to not matter
-    },
+		},
+		sampleMethod: NativeHotUpdate.sampleMethod,
 	}
 } else {
 	log("The HotUpdate module doesn't appear to be properly installed. Please double-check that everything is setup correctly.");
