@@ -42,7 +42,7 @@ function get(url) {
 
 function getUpdateMap() {
 	return new Promise((resolve) => {
-		get(`${serverUrl}/updateMap.json`)
+		get(`${serverUrl}/updateMap.json?v=${Date.now()}`)
 		.then((response) => {
 			resolve(response)
 		})
@@ -56,7 +56,7 @@ function getUpdateMap() {
 
 function getUpdateRecord() {
 	return new Promise((resolve) => {
-		get(`${serverUrl}/updateRecord.json`)
+		get(`${serverUrl}/updateRecord.json?v=${Date.now()}`)
 		.then((response) => {
 			resolve(response)
 		})
