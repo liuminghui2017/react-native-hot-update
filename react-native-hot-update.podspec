@@ -16,10 +16,12 @@ Pod::Spec.new do |s|
   s.platforms    = { :ios => "9.0", :tvos => "10.0" }
   s.source       = { :git => "https://github.com/liuminghui2017/react-native-hot-update.git", :tag => "#{s.version}" }
 
-  s.source_files = "ios/**/*.{h,m,swift}"
+  s.source_files = 'ios/HotUpdate/*.{h,m}'
+  s.public_header_files = ['ios/HotUpdate/HotUpdate.h']
   s.requires_arc = true
 
   s.dependency "React"
+  s.dependency 'SSZipArchive', '~> 2.1'
 	
   # s.dependency "..."
 end
