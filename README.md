@@ -15,12 +15,12 @@
 2. AppDelegate.m文件，引入头文件`#import <HotUpdate/HotUpdate.h>`
 3. AppDelegate.m文件，didFinishLaunchingWithOptions生命周期函数中将
 	```c
-	jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+	return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 	```
 	替换成
 
 	```c
-	jsCodeLocation = [HotUpdate bundleURL];
+	return [HotUpdate bundleURL];
 	```
 
 
