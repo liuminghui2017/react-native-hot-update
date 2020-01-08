@@ -12,7 +12,7 @@
 ### >= RN 0.60.x
 #### iOS
 1. `cd ios && pod install && cd ..`
-2. AppDelegate.m文件，引入头文件`#import <HotUpdate/HotUpdate.h>`
+2. AppDelegate.m文件，引入头文件`#import "HotUpdate.h"`
 3. AppDelegate.m文件，didFinishLaunchingWithOptions生命周期函数中将
 	```c
 	return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
