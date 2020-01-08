@@ -12,6 +12,17 @@
 ### >= RN 0.60.x
 #### iOS
 1. `cd ios && pod install && cd ..`
+2. AppDelegate.m文件，引入头文件`#import <HotUpdate/HotUpdate.h>`
+3. AppDelegate.m文件，didFinishLaunchingWithOptions生命周期函数中将
+	```c
+	jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+	```
+	替换成
+
+	```c
+	jsCodeLocation = [HotUpdate bundleURL];
+	```
+
 
 #### Android
 1. Open up `android/app/src/main/java/[...]/MainApplication.java`
