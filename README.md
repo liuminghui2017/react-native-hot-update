@@ -9,6 +9,20 @@
 3. [Code Push源码](https://github.com/microsoft/react-native-code-push)
 
 ### 手动集成
+### >= RN 0.60.x
+#### iOS
+1. `cd ios && pod install && cd ..`
+
+#### Android
+1. Open up `android/app/src/main/java/[...]/MainApplication.java`
+   - 在`getPackages()`函数同层级下，增加下面方法
+		```java
+		@Override
+		protected String getJSBundleFile() {
+			return HotUpdate.getJSBundleFile();
+		}
+
+### <= RN 0.59.x
 
 #### iOS
 
