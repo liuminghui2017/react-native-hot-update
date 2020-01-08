@@ -15,6 +15,7 @@
 
 #### Android
 1. Open up `android/app/src/main/java/[...]/MainApplication.java`
+   - Add `import com.rickl.reactlibrary.hotupdate.HotUpdate;` to the imports at the top of the file
    - 在`getPackages()`函数同层级下，增加下面方法
 		```java
 		@Override
