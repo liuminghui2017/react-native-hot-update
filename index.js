@@ -14,8 +14,8 @@ let serverUrl = null;
  * 		...
  * 	],
  *  1.5.2: [
- * 		{ appVersion: "1.5.2", patchCode: 1, label: "v1", packageHash: "xxxx", baseUrl: "http://aliyunOss.com/1.5.2/patch1" },
- * 		{ appVersion: "1.5.2", patchCode: 2, label: "v2", packageHash: "xxxx", baseUrl: "http://aliyunOss.com/1.5.2/patch2" },
+ * 		{ appVersion: "1.5.2", patchCode: 1, label: "v3", packageHash: "xxxx", baseUrl: "http://aliyunOss.com/1.5.2/patch1" },
+ * 		{ appVersion: "1.5.2", patchCode: 2, label: "v4", packageHash: "xxxx", baseUrl: "http://aliyunOss.com/1.5.2/patch2" },
  * 		...
  * 	],
  * 	...
@@ -23,10 +23,10 @@ let serverUrl = null;
  * 
  * 
  * updateRecord.json [
- * 		{ label: v1, target: "1.5.1", description: "xxxxxxxxxxx", mandatory: false },
- * 		{ label: v2, target: "1.5.1", description: "xxxxxxxxxxx", mandatory: false },
- * 		{ label: v3, target: "1.5.1 - 1.5.2", description: "xxxxxxxxxxx", mandatory: false },
- * 		{ label: v4, target: "1.5.1", description: "xxxxxxxxxxx", mandatory: false },
+ * 		{ label: v1, target: "1.5.1", description: "xxxxxxxxxxx", mandatory: false, slient: false },
+ * 		{ label: v2, target: "1.5.1", description: "xxxxxxxxxxx", mandatory: false, slient: false },
+ * 		{ label: v3, target: "1.5.2", description: "xxxxxxxxxxx", mandatory: false, slient: false },
+ * 		{ label: v4, target: "1.5.2", description: "xxxxxxxxxxx", mandatory: false, slient: false },
  * ]
  */
 
@@ -117,7 +117,8 @@ async function checkUpdate() {
 				if (record.label === latestPatch.label) {
 					remotePackage.description =record.description
 					remotePackage.mandatory =record.mandatory
-					return remotePackage
+					remotePackage.slient = record.slient
+					return true
 				}
 			})
 		}
