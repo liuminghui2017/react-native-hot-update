@@ -23,10 +23,10 @@ let serverUrl = null;
  * 
  * 
  * updateRecord.json [
- * 		{ label: v1, target: "1.5.1", description: "xxxxxxxxxxx", mandatory: false, slient: false },
- * 		{ label: v2, target: "1.5.1", description: "xxxxxxxxxxx", mandatory: false, slient: false },
- * 		{ label: v3, target: "1.5.2", description: "xxxxxxxxxxx", mandatory: false, slient: false },
- * 		{ label: v4, target: "1.5.2", description: "xxxxxxxxxxx", mandatory: false, slient: false },
+ * 		{ label: v1, target: "1.5.1", description: "xxxxxxxxxxx", mandatory: false, silent: false },
+ * 		{ label: v2, target: "1.5.1", description: "xxxxxxxxxxx", mandatory: false, silent: false },
+ * 		{ label: v3, target: "1.5.2", description: "xxxxxxxxxxx", mandatory: false, silent: false },
+ * 		{ label: v4, target: "1.5.2", description: "xxxxxxxxxxx", mandatory: false, silent: false },
  * ]
  */
 
@@ -117,7 +117,7 @@ async function checkUpdate() {
 				if (record.label === latestPatch.label) {
 					remotePackage.description =record.description
 					remotePackage.mandatory =record.mandatory
-					remotePackage.slient = record.slient
+					remotePackage.silent = record.silent
 					return true
 				}
 			})
