@@ -573,42 +573,42 @@ static NSString *bundleResourceSubdirectory = nil;
 
 // These two handlers will only be registered when there is
 // a resume-based update still pending installation.
-// - (void)applicationWillEnterForeground
-// {
-//     if (_appSuspendTimer) {
-//         [_appSuspendTimer invalidate];
-//         _appSuspendTimer = nil;
-//     }
-//     // Determine how long the app was in the background and ensure
-//     // that it meets the minimum duration amount of time.
-//     int durationInBackground = 0;
-//     if (_lastResignedDate) {
-//         durationInBackground = [[NSDate date] timeIntervalSinceDate:_lastResignedDate];
-//     }
+- (void)applicationWillEnterForeground
+{
+    if (_appSuspendTimer) {
+        [_appSuspendTimer invalidate];
+        _appSuspendTimer = nil;
+    }
+    // Determine how long the app was in the background and ensure
+    // that it meets the minimum duration amount of time.
+    int durationInBackground = 0;
+    if (_lastResignedDate) {
+        durationInBackground = [[NSDate date] timeIntervalSinceDate:_lastResignedDate];
+    }
 
-//     if (durationInBackground >= _minimumBackgroundDuration) {
-//         [self loadBundle];
-//     }
-// }
+    if (durationInBackground >= _minimumBackgroundDuration) {
+        [self loadBundle];
+    }
+}
 
-// - (void)applicationWillResignActive
-// {
-//     // Save the current time so that when the app is later
-//     // resumed, we can detect how long it was in the background.
-//     _lastResignedDate = [NSDate date];
+- (void)applicationWillResignActive
+{
+    // Save the current time so that when the app is later
+    // resumed, we can detect how long it was in the background.
+    _lastResignedDate = [NSDate date];
 
-//     if (_installMode == HotUpdateInstallModeOnNextSuspend && [[self class] isPendingUpdate:nil]) {
-//         _appSuspendTimer = [NSTimer scheduledTimerWithTimeInterval:_minimumBackgroundDuration
-//                                                          target:self
-//                                                        selector:@selector(loadBundleOnTick:)
-//                                                        userInfo:nil
-//                                                         repeats:NO];
-//     }
-// }
+    if (_installMode == HotUpdateInstallModeOnNextSuspend && [[self class] isPendingUpdate:nil]) {
+        _appSuspendTimer = [NSTimer scheduledTimerWithTimeInterval:_minimumBackgroundDuration
+                                                         target:self
+                                                       selector:@selector(loadBundleOnTick:)
+                                                       userInfo:nil
+                                                        repeats:NO];
+    }
+}
 
-// -(void)loadBundleOnTick:(NSTimer *)timer {
-//     [self loadBundle];
-// }
+-(void)loadBundleOnTick:(NSTimer *)timer {
+    [self loadBundle];
+}
 
 // #pragma mark - JavaScript-exported module methods (Public)
 
